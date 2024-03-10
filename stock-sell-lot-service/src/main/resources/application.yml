@@ -1,0 +1,38 @@
+server:
+  port: ${port:8082}
+
+spring:
+  application:
+    name: stock-buy-lot-service
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sasha
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.tveritin.service.kafka.CustomSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.tveritin.service.kafka.CustomDeserializer
+    listener:
+      missing-topics-fatal: false
+
+logging:
+  level:
+    root: INFO
+
+jwt:
+  secret: super_secret
+  ttl: 40m

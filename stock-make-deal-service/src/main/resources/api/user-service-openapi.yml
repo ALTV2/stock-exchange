@@ -1,0 +1,234 @@
+openapi: 3.0.3
+info:
+  title: Sale Lot Service API
+  description: API for managing sale lots for stocks
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+tags:
+  - name: auth
+    description: Operations with auth
+  - name: user
+    description: Operations with User
+  - name: portfolio
+    description: Operations with User Portfolio
+  - name: lot
+    description: Operations with User Portfolio
+paths:
+  /register:
+    post:
+      tags:
+        - auth
+      summary: Register a new user
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+      responses:
+        '200':
+          description: User registered successfully
+        '400':
+          description: Invalid request data
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Authenticate a user
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserDto'
+      responses:
+        '200':
+          description: User authenticated successfully
+        '401':
+          description: Unauthorized - Invalid credentials
+  /user/{userId}:
+    get:
+      tags:
+        - user
+      summary: Get user by ID
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          links:
+            self:
+              operationId: getPortfolio
+              parameters:
+                portfolioId: $response.body#/portfolioId
+  /portfolio/{portfolioId}:
+    get:
+      tags:
+        - portfolio
+      summary: Get portfolio by ID
+      operationId: getPortfolio
+      parameters:
+        - name: portfolioId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioDto'
+  /lot/buy:
+    post:
+      tags:
+        - lot
+      summary: Create a new lot to buy a stock
+      operationId: createBuyLot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotDto'
+      responses:
+        '200':
+          description: Lot for buying created successfully
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+        '405':
+          description: The specified HTTP method is not supported for this resource.
+  /lot/sell:
+    post:
+      tags:
+        - lot
+      summary: Create a new lot to sell a stock
+      operationId: createSellLot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LotDto'
+      responses:
+        '200':
+          description: Lot for selling created successfully
+        '400':
+          description: Bad Request. The request was invalid or malformed.
+        '405':
+          description: The specified HTTP method is not supported for this resource.
+components:
+  schemas:
+    RegisterUserDto:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    LoginUserDto:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        Name:
+          type: string
+        SurName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        balance:
+          type: number
+          format: double
+        portfolioId:
+          type: string
+          format: uuid
+    StockDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        ticketName:
+          type: string
+        companyName:
+          type: string
+        description:
+          type: integer
+      required:
+        - ticketName
+        - companyName
+        - description
+    PackageDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        stock:
+          $ref: '#/components/schemas/StockDto'
+        quantity:
+          type: integer
+        lastChangeDateTime:
+          type: string
+          format: date-time
+      required:
+        - stock
+        - quantity
+    PortfolioDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        packages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageDto'
+        lastChangeDateTime:
+          type: string
+          format: date-time
+      required:
+        - packages
+    LotDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        stockId:
+          type: string
+          format: uuid
+        numberOfStocks:
+          type: integer
+        priceForOneStock:
+          type: integer
+        useActualPrice:
+          type: boolean

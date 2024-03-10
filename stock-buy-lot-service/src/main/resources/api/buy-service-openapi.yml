@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: Buy Lot Service API
+  description: API for managing buy lots for stocks
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+tags:
+  - name: BuyLot
+    description: Operations with Lots for Sell
+  - name: CheckDeal
+    description: Operations with deal
+
+paths:
+  /sell/lot:
+    post:
+      tags:
+        - BuyLot
+      summary: Create a new buy lot for stocks
+      operationId: createBuyLot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BuyLotDto'
+      responses:
+        '201':
+          description: Buy lot created successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                format: uuid
+        '400':
+          description: Bad Request
+    get:
+      tags:
+        - BuyLot
+      summary: Get information about all buy lots
+      operationId: getAllBuyLots
+      responses:
+        '200':
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuyLotDto'
+        '404':
+          description: Lots not found
+
+  /sell/lot/{lotId}:
+    get:
+      tags:
+        - BuyLot
+      summary: Get information about a specific buy lot by ID
+      operationId: getBuyLotById
+      parameters:
+        - in: path
+          name: lotId
+          required: true
+          schema:
+            type: string
+          description: Lot ID
+      responses:
+        '200':
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyLotDto'
+        '404':
+          description: Lot not found
+    delete:
+      tags:
+        - BuyLot
+      summary: Delete information about a specific buy lot by ID
+      operationId: deleteBuyLotById
+      parameters:
+        - in: path
+          name: lotId
+          required: true
+          schema:
+            type: string
+          description: Lot ID
+      responses:
+        '200':
+          description: Successful request
+        '404':
+          description: Lot not found
+
+  /sell/lot/user/{userId}:
+    get:
+      tags:
+        - BuyLot
+      summary: Get a list of buy lots by user ID
+      operationId: getBuyLotsByUserId
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: User ID
+      responses:
+        '200':
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuyLotDto'
+        '404':
+          description: User not found
+  /sell/lot/stock/{stockId}:
+    get:
+      tags:
+        - BuyLot
+      summary: Get a list of buy lots by stock ID
+      operationId: getBuyLotsByStockId
+      parameters:
+        - in: path
+          name: stockId
+          required: true
+          schema:
+            type: string
+          description: Stock ID
+      responses:
+        '200':
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuyLotDto'
+        '404':
+          description: Stock not found
+  /sell/check:
+    post:
+      tags:
+        - CheckDeal
+      summary: Get a list of buy lots by stock ID
+      operationId: CheckDeal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DealOfferDto'
+      responses:
+        '201':
+          description: get info about deal offer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApproveDellOfferDto'
+        '400':
+          description: Bad Request
+
+components:
+  schemas:
+    BuyLotDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        stockId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        numberOfStocks:
+          type: integer
+        priceForOneStock:
+          type: integer
+        totalPrice:
+          type: integer
+        creationDateTime:
+          type: string
+          format: date-time
+        buyForActualPrice:
+          type: boolean
+    DealOfferDto:
+      type: object
+      properties:
+        stockId:
+          type: string
+          format: uuid
+        minPrise:
+          type: integer
+        numberOfStocks:
+          type: integer
+    LotForDealDto:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        numberOfStocks:
+          type: integer
+        priceForOneStock:
+          type: integer
+        closedLot:
+          type: boolean
+        totalPrice:
+          type: integer
+    ApproveDellOfferDto:
+      type: object
+      properties:
+        approved:
+          type: boolean
+        remaining:
+          type: integer
+        lots:
+          type: array
+          items:
+            $ref: '#/components/schemas/LotForDealDto'
