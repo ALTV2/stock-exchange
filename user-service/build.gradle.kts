@@ -36,6 +36,8 @@ dependencies {
 
     //OPENAPI
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-hateoas:3.2.1")
+
 
 //    implementation(project(":common:logging"))
 

@@ -3,6 +3,8 @@ package com.tveritin.controller;
 import com.tveritin.model.dto.UserDto;
 import com.tveritin.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 

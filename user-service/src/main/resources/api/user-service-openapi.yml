@@ -116,11 +116,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDto'
-          links:
-            self:
-              operationId: getPortfolio
-              parameters:
-                portfolioId: $response.body#/portfolioId
   /portfolio/{portfolioId}:
     get:
       tags:
@@ -236,6 +231,11 @@ components:
         portfolioId:
           type: string
           format: uuid
+        links:
+          type: array
+          format: link
+          items:
+            $ref: '#/components/schemas/Link'
     StockDto:
       type: object
       properties:
@@ -314,3 +314,11 @@ components:
           type: integer
         priceForOneStock:
           type: integer
+    Link:
+      type: object
+      properties:
+        description:
+          type: string
+        href:
+          type: string
+          format: link

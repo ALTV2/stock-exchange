@@ -3,6 +3,7 @@ package com.tveritin.service;
 import com.tveritin.domain.Portfolio;
 import com.tveritin.domain.Usser;
 import com.tveritin.mapper.UserMapper;
+import com.tveritin.model.dto.Link;
 import com.tveritin.model.dto.UserDto;
 import com.tveritin.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class UserService {
     public UserDto getUserById(String userId) {
         Optional<Usser> user = userRepository.findById(UUID.fromString(userId));
         if (user.isPresent()) {
-            return userMapper.convertUserToUserDto(user.get());
+            return addHATEOSLinks(userMapper.convertUserToUserDto(user.get()));
         } else throw new NoSuchElementException();
     }
 
@@ -40,7 +42,10 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        return userMapper.convertUserListToUserDtoList(userRepository.findAll());
+        return userMapper.convertUserListToUserDtoList(userRepository.findAll())
+                .stream()
+                .map(this::addHATEOSLinks)
+                .collect(Collectors.toList());
     }
 
     public UserDto createUser(UserDto userDto) {
@@ -52,13 +57,19 @@ public class UserService {
         usser.setEmail(userDto.getEmail());
         usser.setBalance(STARTED_BALANCE);
 
-//        usser.setPortfolio(portfolio);
-
         Usser createdUser = userRepository.save(usser);
         Portfolio portfolio = portfolioService.createPortfolio(createdUser);
         createdUser.setPortfolio(portfolio);
         userRepository.save(createdUser);
 
-        return userMapper.convertUserToUserDto(createdUser);
+        return addHATEOSLinks(userMapper.convertUserToUserDto(createdUser));
+    }
+
+    private UserDto addHATEOSLinks (UserDto userDto) {
+        Link potfolioLink = new Link();
+        potfolioLink.setDescription("getPortfolio");
+        potfolioLink.setHref("/portfolio/" + userDto.getPortfolioId());
+        userDto.links(List.of(potfolioLink));
+        return userDto;
     }
 }

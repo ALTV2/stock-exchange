@@ -14,6 +14,7 @@ public interface UserMapper {
 
 
     @Mapping(target = "portfolioId", expression = "java(usser.getPortfolio() != null ? usser.getPortfolio().getId() : null)")
+    @Mapping(target = "links", ignore = true)
     UserDto convertUserToUserDto(Usser usser);
 
     List<UserDto> convertUserListToUserDtoList(List<Usser> ussers);
