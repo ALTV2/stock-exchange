@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "sell-lot-service", url = "http://localhost:8082")
+@FeignClient(name = "sell-lot-service")
 public interface SellLotServiceClient {
     @RequestMapping(
             method = {RequestMethod.POST},

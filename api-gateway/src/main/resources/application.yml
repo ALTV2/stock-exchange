@@ -1,0 +1,32 @@
+server:
+  port: 8877
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: api-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: buy-service-route
+          uri: lb://buy-lot-service
+          predicates:
+            - Path=/buy/lot
+        - id: sell-service-route
+          uri: lb://sell-lot-service
+          predicates:
+            - Path=/sell/lot
+        - id: user-service-route
+          uri: lb://user-service
+          predicates:
+            - Path=/**

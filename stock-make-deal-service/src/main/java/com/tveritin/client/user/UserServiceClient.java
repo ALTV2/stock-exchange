@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "user-service-client", url = "http://localhost:8080")
+@FeignClient(name = "user-service")
 public interface UserServiceClient {
     @RequestMapping(
             method = {RequestMethod.GET},

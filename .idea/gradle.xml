@@ -8,6 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/api-gateway" />
+            <option value="$PROJECT_DIR$/eureka-discovery-service" />
             <option value="$PROJECT_DIR$/stock-buy-lot-service" />
             <option value="$PROJECT_DIR$/stock-make-deal-service" />
             <option value="$PROJECT_DIR$/stock-sell-lot-service" />

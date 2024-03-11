@@ -9,12 +9,12 @@ info:
 
 tags:
   - name: BuyLot
-    description: Operations with Lots for Sell
+    description: Operations with Lots for Buying
   - name: CheckDeal
     description: Operations with deal
 
 paths:
-  /sell/lot:
+  /buy/lot:
     post:
       tags:
         - BuyLot
@@ -53,7 +53,7 @@ paths:
         '404':
           description: Lots not found
 
-  /sell/lot/{lotId}:
+  /buy/lot/{lotId}:
     get:
       tags:
         - BuyLot
@@ -93,7 +93,7 @@ paths:
         '404':
           description: Lot not found
 
-  /sell/lot/user/{userId}:
+  /buy/lot/user/{userId}:
     get:
       tags:
         - BuyLot
@@ -117,7 +117,7 @@ paths:
                   $ref: '#/components/schemas/BuyLotDto'
         '404':
           description: User not found
-  /sell/lot/stock/{stockId}:
+  /buy/lot/stock/{stockId}:
     get:
       tags:
         - BuyLot
@@ -141,7 +141,7 @@ paths:
                   $ref: '#/components/schemas/BuyLotDto'
         '404':
           description: Stock not found
-  /sell/check:
+  /buy/check:
     post:
       tags:
         - CheckDeal

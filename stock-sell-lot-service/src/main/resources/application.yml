@@ -1,9 +1,14 @@
 server:
-  port: ${port:8082}
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
 
 spring:
   application:
-    name: stock-buy-lot-service
+    name: sell-lot-service
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver

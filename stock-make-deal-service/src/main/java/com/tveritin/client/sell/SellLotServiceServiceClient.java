@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "sell-service-client", url = "http://localhost:8082")
+@FeignClient(name = "sell-lot-service")
 public interface SellLotServiceServiceClient {
     @RequestMapping(
             method = {RequestMethod.POST},

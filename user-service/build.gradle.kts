@@ -42,6 +42,7 @@ dependencies {
     //TESTS
     implementation("org.postgresql:postgresql:42.2.27")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0")
     runtimeOnly("com.h2database:h2")
 
 
