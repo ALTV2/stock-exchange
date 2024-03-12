@@ -2,10 +2,12 @@ package com.tveritin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 @SpringBootApplication
-public class BuyLotApplication {
+@EnableEurekaServer
+public class EurekaApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BuyLotApplication.class, args);
+        SpringApplication.run(EurekaApplication.class, args);
     }
 }

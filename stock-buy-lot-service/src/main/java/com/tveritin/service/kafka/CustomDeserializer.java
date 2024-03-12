@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 public class CustomDeserializer implements Deserializer<Object> {
     @Override
@@ -12,8 +13,7 @@ public class CustomDeserializer implements Deserializer<Object> {
         try {
             return objectMapper.readValue(data, Object.class);
         } catch (IOException e) {
-            // Обработка ошибки десериализации
-            return null;
+            throw new UncheckedIOException("Deserialization Error", e);
         }
     }
 }

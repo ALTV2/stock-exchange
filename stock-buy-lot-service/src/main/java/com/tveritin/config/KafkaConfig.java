@@ -35,8 +35,6 @@ public class KafkaConfig {
     public KafkaTemplate<String, LotKafkaDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
-
-    // Дополнительная конфигурация для Consumer, если нужно
 }
 
 

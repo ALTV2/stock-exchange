@@ -37,7 +37,6 @@ public class BuyLot {
     @Column
     private boolean buyForActualPrice;
 
-    //???
     @Column(nullable = false)
     private Long totalPrice;
 }

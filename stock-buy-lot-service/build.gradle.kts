@@ -10,19 +10,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("io.micrometer:micrometer-registry-prometheus")
-//    implementation(project(mapOf("path" to ":common:database")))
-//    implementation("io.hypersistence:hypersistence-utils-hibernate-62:3.6.0")
-//    compileOnly("org.projectlombok:lombok:1.18.30")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0")
+    annotationProcessor("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0")
+
+    //LOMBOK
+    compileOnly("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
 
     //MAPSTRUCT
     implementation("org.mapstruct:mapstruct:1.4.2.Final")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.4.2.Final")
-
-    //LOMBOK
-    compileOnly("org.projectlombok:lombok:1.18.30")
-    annotationProcessor("org.projectlombok:lombok:1.18.30")
 
     //OPENAPI
     implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -31,14 +28,12 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka:3.1.2")
     implementation("org.apache.kafka:kafka-clients:3.6.0")
 
-//    implementation(project(":common:logging"))
-
     //TESTS
-    implementation("org.postgresql:postgresql:42.2.27")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0")
-    annotationProcessor("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:postgresql")
+    testImplementation("com.google.code.gson:gson:2.10")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
 
     runtimeOnly("com.h2database:h2")
 }

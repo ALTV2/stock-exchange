@@ -34,7 +34,6 @@ public class BuyLotService {
     }
 
     public void deleteBuyLot(String lotId) {
-//        List<BuyLot> lots = buyLotRepository.findAll();
         buyLotRepository.deleteById(UUID.fromString(lotId));
     }
 
