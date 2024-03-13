@@ -20,7 +20,10 @@ public class Portfolio {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToMany(mappedBy = "portfolio")
+    @OneToMany(
+            mappedBy = "portfolio",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Package> packages;
 
     @OneToOne

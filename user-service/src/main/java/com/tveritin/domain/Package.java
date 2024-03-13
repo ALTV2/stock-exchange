@@ -43,7 +43,6 @@ public class Package {
     }
 
     public void setQuantity(Integer quantity) {
-        System.out.println("Setting of :" + quantity);
         this.quantity = quantity;
     }
 

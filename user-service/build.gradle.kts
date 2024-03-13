@@ -12,18 +12,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0")
-//    annotationProcessor("org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0")
 
-
-//    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("io.jsonwebtoken:jjwt-api:0.12.3")
-//    implementation(project(mapOf("path" to ":common:database")))
-//    implementation("io.hypersistence:hypersistence-utils-hibernate-62:3.6.0")
-//    compileOnly("org.projectlombok:lombok:1.18.30")
+
     annotationProcessor("org.projectlombok:lombok:1.18.30")
 
     //MAPSTRUCT
@@ -38,16 +34,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-hateoas:3.2.1")
 
-
-//    implementation(project(":common:logging"))
-
     //TESTS
-    implementation("org.postgresql:postgresql:42.2.27")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.1.0")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("org.testcontainers:postgresql")
+    testImplementation("com.google.code.gson:gson:2.10")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+
     runtimeOnly("com.h2database:h2")
-
-
 }
 
 openApiGenerate {

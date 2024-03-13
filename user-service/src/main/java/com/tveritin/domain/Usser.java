@@ -36,6 +36,6 @@ public class Usser {
     @Column
     private Double balance;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Portfolio portfolio;
 }
